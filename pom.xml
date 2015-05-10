@@ -26,6 +26,12 @@ http://maven.apache.org/maven-v4_0_0.xsd ">
             <artifactId>mockito-core</artifactId>
             <version>1.10.19</version>
         </dependency>
+        <dependency>
+            <groupId>eu.codearte.catch-exception</groupId>
+            <artifactId>catch-exception</artifactId>
+            <version>1.4.4</version>
+            <scope>test</scope> <!-- test scope to use it only in tests -->
+        </dependency>
     </dependencies>
     <build>
         <plugins>
