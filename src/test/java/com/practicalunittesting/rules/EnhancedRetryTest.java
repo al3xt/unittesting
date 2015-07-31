@@ -5,6 +5,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 /**
+ * Tests for RetryTestEnhancedRule
  * Created by otsukanov on 7/30/2015.
  */
 public class EnhancedRetryTest {

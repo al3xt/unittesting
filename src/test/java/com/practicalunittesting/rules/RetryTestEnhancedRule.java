@@ -4,9 +4,8 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-import java.lang.annotation.Annotation;
-
 /**
+ * This rule is used to provide rerun tests possibility
  * Created by otsukanov on 7/30/2015.
  */
 public class RetryTestEnhancedRule implements TestRule {
@@ -21,20 +20,22 @@ public class RetryTestEnhancedRule implements TestRule {
                 } catch (AssertionError ae) {
                     RetryTest annotation = description.getAnnotation(RetryTest.class);
                     if(annotation != null){
-                        boolean evaluated = false;
-                        for(int i = 0; i < annotation.retryNb() - 1 || evaluated; i++){
-                            try {
-                                statement.evaluate();
-                                evaluated = true;
-                            } catch (AssertionError assertionError){
-                                if (i == annotation.retryNb() - 2){
-                                    throw assertionError;
-                                }
-                            }
-                        }
-
+                        rerun(annotation);
                     }
+                }
+            }
 
+            private void rerun(RetryTest annotation) throws Throwable {
+                boolean evaluated = false;
+                for(int i = 0; i < annotation.retryNb() - 1 || evaluated; i++){
+                    try {
+                        statement.evaluate();
+                        evaluated = true;
+                    } catch (AssertionError assertionError){
+                        if (i == annotation.retryNb() - 2){
+                            throw assertionError;
+                        }
+                    }
                 }
             }
         };
