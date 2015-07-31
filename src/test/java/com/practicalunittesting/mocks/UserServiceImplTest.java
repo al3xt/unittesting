@@ -2,9 +2,7 @@ package com.practicalunittesting.mocks;
 
 import org.junit.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Test for UserServiceImpl
@@ -32,4 +30,22 @@ public class UserServiceImplTest {
         verify(securityService).md5(TEST_PASSWORD);
         verify(userDAO).updateUser(user);
     }
+
+    @Test(expected = NullPointerException.class)
+    public void testAssignNewPasswordToUserWithoutOldPassword() throws Exception {
+        when(user.getPassword()).thenReturn(null);
+        when(securityService.md5(null)).thenThrow(new NullPointerException());
+        UserServiceImpl userService = new UserServiceImpl(userDAO, securityService);
+        userService.assignPassword(user);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAssignNewPasswordToUserWhenDAOThrowsException() throws Exception {
+        when(user.getPassword()).thenReturn(TEST_PASSWORD);
+        when(securityService.md5(TEST_PASSWORD)).thenReturn(ENCRYPTED_PASSWORD);
+        doThrow(new IllegalStateException()).when(userDAO).updateUser(user);
+        UserServiceImpl userService = new UserServiceImpl(userDAO, securityService);
+        userService.assignPassword(user);
+    }
+
 }
