@@ -1,5 +1,6 @@
 package com.practicalunittesting.collections;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public class HamcrestCollectionTest {
     String s1 = "s1";
     String s2 = "s2";
 
-
+    @Before
     public void setUp(){
         setA.add(s1);
         setA.add(s2);

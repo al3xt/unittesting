@@ -2,9 +2,10 @@ package com.practicalunittesting.rules;
 
 import org.junit.*;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
+ * This test for restore system properties rule
  * Created by otsukanov on 7/30/2015.
  */
 public class RestoreSysPropertiesTest {
