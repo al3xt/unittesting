@@ -30,4 +30,11 @@ public class Money {
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        int result = amount;
+        result = 31 * result + (currency != null ? currency.hashCode() : 0);
+        return result;
+    }
 }
